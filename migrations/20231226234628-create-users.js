@@ -10,33 +10,37 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       document_type: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       document_number: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       first_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       last_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       phone: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       role: {
         type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: 'standard',
-        validate: {
-          isIn: [['standard', 'superuser']] 
-        }
+        defaultValue: 'standard'
       },
       status: {
         type: Sequelize.BOOLEAN,
