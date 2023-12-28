@@ -2,25 +2,25 @@
 const {
   Model
 } = require('sequelize');
-const customers = require('./customers');
-const companies = require('./companies');
-const equipment = require('./equipment');
+const Customer = require('./Customer');
+const Company = require('./Company');
+const Equipment = require('./Equipment');
 module.exports = (sequelize, DataTypes) => {
-  class orders extends Model {
+  class Order extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      orders.belongsTo(customers);
-      orders.belongsTo(companies);
-      orders.hasMany(equipment, {
+      Order.belongsTo(models.Customer);
+      Order.belongsTo(models.Company);
+      Order.hasMany(models.Equipment, {
         foreignKey: 'order_id'
       });
     }
   }
-  orders.init({
+  Order.init({
     number: DataTypes.STRING,
     receipt_date: DataTypes.DATE,
     received_by: DataTypes.STRING,
@@ -30,7 +30,8 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'orders',
+    modelName: 'Order',
+    tableName: 'orders'
   });
-  return orders;
+  return Order;
 };

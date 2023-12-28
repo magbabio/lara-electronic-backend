@@ -1,0 +1,6 @@
+{
+  "UserFoundE": "Email is already in use",
+  "UserFoundD": "Document is already in use",
+  "UserCreated": "User created successfully",
+  "UnexpectedError": "Unexpected Error"
+}
