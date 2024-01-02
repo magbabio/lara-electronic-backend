@@ -1,14 +1,14 @@
 {
   "name": "laraelectronica-backend",
   "version": "1.0.0",
-  "description": "Lara Electrónica backend; system build for services order management",
+  "description": "Backend application for service order management at Lara Electrónica, C.A. Built using NodeJS, Express, PostgreSQL and Sequelize",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
     "start": "nodemon app.js"
   },
   "keywords": [],
-  "author": "Mariel García",
+  "author": "Mariel García - Software Engineer",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
