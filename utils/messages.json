@@ -2,5 +2,13 @@
   "UserFoundE": "Email is already in use",
   "UserFoundD": "Document is already in use",
   "UserCreated": "User created successfully",
+  "UserLogin": "Logged in successfully",
+  "UserLoginErrorE": "Incorrect email",
+  "UserLoginErrorP": "Incorrect password",
+  "UserBlocked": "User blocked",
+  "UserNotFound": "User not found",
+  "UserDeleted": "User deleted successfully",
+  "UserActivated": "User activated successfully",
+  "UserUpdated": "User updated successfully",
   "UnexpectedError": "Unexpected Error"
 }
