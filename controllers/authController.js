@@ -3,7 +3,6 @@ const response = require('../utils/responses');
 const { createAccessToken } = require('../libs/jwt');
 const bcrypt = require('bcrypt');
 
-
 const login = async (req, res) => {
 
   try {
@@ -36,12 +35,24 @@ const login = async (req, res) => {
     response.makeResponsesOkData(res, token, 'UserLogin')
     
   } catch (error) {
-    
     response.makeResponsesError(res, error, 'UnexpectedError')
+  }
+}
 
+const logout = async (req, res) => {
+  try {
+    res.cookie("token", "", {
+      httpOnly: true,
+      secure: true,
+      expires: new Date(0),
+    });
+    response.makeResponsesOk(res, 'UserLogout')
+  } catch (error) {
+    response.makeResponsesError(res, error, 'UnexpectedError')
   }
 }
 
 module.exports = {
-  login: login
+  login: login,
+  logout: logout
 }; 

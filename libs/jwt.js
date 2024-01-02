@@ -1,10 +1,11 @@
+const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 function createAccessToken(payload) {
   return new Promise((resolve, reject) => {
     jwt.sign(
       payload, 
-      SECRET_KEY, 
+      process.env.SECRET_KEY, 
       { 
         expiresIn: "1d" 
       }, 
