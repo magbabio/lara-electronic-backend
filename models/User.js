@@ -129,11 +129,15 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Status is required'
         }
       }
-    }
+    },
+    deleted_at: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'User',
-    tableName: 'users'
+    tableName: 'users',
+    timestamps: true,
+    createdAt: 'created_at', 
+    updatedAt: 'updated_at' 
   });
   return User;
 };

@@ -25,11 +25,15 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     email: DataTypes.STRING,
     notes: DataTypes.STRING,
-    status: DataTypes.BOOLEAN
+    status: DataTypes.BOOLEAN,
+    deleted_at: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Customer',
-    tableName: 'customers'
+    tableName: 'customers',
+    timestamps: true,
+    createdAt: 'created_at', 
+    updatedAt: 'updated_at' 
   });
   return Customer;
 };

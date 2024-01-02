@@ -11,8 +11,8 @@ module.exports = {
       phone: '0251-4435613 0414-5134750 0424-5004176',
       email: 'electronicaysistemaslara@gmail.com',
       status: true,
-      createdAt: new Date(),
-      updatedAt: new Date()
+      created_at: new Date(),
+      updated_at: new Date()
     }]);
   },
   down: (queryInterface, Sequelize) => {

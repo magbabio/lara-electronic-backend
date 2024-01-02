@@ -112,6 +112,7 @@ const deleteUser = async (req, res) => {
 
     const saveUser = await user.update({
       status: false,
+      deleted_at: Date.now(),
       where: { id }
     });
 
@@ -175,7 +176,7 @@ const getAllUsers = async (req, res) => {
       where: {
         status: true
       },
-      order: [['createdAt', 'DESC']]
+      order: [['created_at', 'DESC']]
     });
 
     response.makeResponsesOkData(res, users, 'Success')

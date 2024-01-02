@@ -15,10 +15,14 @@ const login = async (req, res) => {
     });
 
     if (!valUser) {
+
       response.makeResponsesError(res, `Incorrect credentials`, 'UserLoginErrorE')
+
     } else if (valUser.status == false) {
+
       response.makeResponsesError(res, `Authentication denied`, 'User blocked')
-    }
+
+    } else {
 
     const valPass = await bcrypt.compare(password, valUser.password);
 
@@ -33,6 +37,8 @@ const login = async (req, res) => {
     });
 
     response.makeResponsesOkData(res, token, 'UserLogin')
+
+  }
     
   } catch (error) {
     response.makeResponsesError(res, error, 'UnexpectedError')
