@@ -20,7 +20,7 @@ const login = async (req, res) => {
 
     } else if (valUser.status == false) {
 
-      response.makeResponsesError(res, `Authentication denied`, 'User blocked')
+      response.makeResponsesError(res, `Authentication denied`, 'UserBlocked')
 
     } else {
 

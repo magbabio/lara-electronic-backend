@@ -1,7 +1,7 @@
-const { User } = require('../models');
+const { User, Role } = require('../models');
 const response = require('../utils/responses');
 const bcrypt = require('bcrypt');
-
+const { Sequelize } = require('sequelize');
 
 const createUser = async (req, res) => {
 
@@ -86,8 +86,6 @@ const updateUser = async (req, res) => {
     }
 
   } catch (error) {
-
-    console.log(error);
     
     response.makeResponsesError(res, error, 'UnexpectedError')
 
@@ -165,7 +163,6 @@ const getUser = async (req, res) => {
     });
     response.makeResponsesOkData(res, user, 'Success')
   } catch (error) {
-    console.log(error);
     response.makeResponsesError(res, error, 'UnexpectedError')
   }
 }
@@ -186,11 +183,28 @@ const getAllUsers = async (req, res) => {
   }
 }
 
+const getAllDeletedUsers = async (req, res) => {
+  try {
+    const users = await User.findAll({
+      where: {
+        status: false
+      },
+      order: [['deleted_at', 'DESC']]
+    });
+
+    response.makeResponsesOkData(res, users, 'Success')
+
+  } catch (error) {
+    response.makeResponsesError(res, error, 'UnexpectedError')
+  }
+}
+
 module.exports = {
   createUser: createUser,
   updateUser: updateUser,
   deleteUser: deleteUser,
   activateUser: activateUser,
   getUser: getUser,
-  getAllUsers: getAllUsers
+  getAllUsers: getAllUsers,
+  getAllDeletedUsers: getAllDeletedUsers
 }; 

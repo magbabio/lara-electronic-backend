@@ -14,7 +14,7 @@ module.exports = {
       phone: '0424-5269633',
       email: 'magbabio@gmail.com',
       password: password,
-      role: 'superuser',
+      role: 'Admin',
       status: true,
       created_at: new Date(),
       updated_at: new Date()

@@ -112,13 +112,6 @@ module.exports = (sequelize, DataTypes) => {
     role: {
       type: DataTypes.STRING,
       allowNull:false,
-      defaultValue: 'standard',
-      validate: {
-        isIn: {
-          args: [['standard', 'superuser']],
-          msg: 'Role must be "standard" or "superuser"'
-        }
-      }
     },
     status: {
       type: DataTypes.BOOLEAN,
