@@ -27,11 +27,15 @@ module.exports = (sequelize, DataTypes) => {
     observations: DataTypes.STRING,
     notes: DataTypes.STRING,
     order_status: DataTypes.INTEGER,
-    status: DataTypes.BOOLEAN
+    status: DataTypes.BOOLEAN,
+    deleted_at: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Order',
-    tableName: 'orders'
+    tableName: 'orders',
+    timestamps: true,
+    createdAt: 'created_at', 
+    updatedAt: 'updated_at' 
   });
   return Order;
 };

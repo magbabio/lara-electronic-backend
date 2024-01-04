@@ -1,7 +1,7 @@
-const { User } = require('../models');
+const { User, Role } = require('../models');
 const response = require('../utils/responses');
 const bcrypt = require('bcrypt');
-
+const { Sequelize } = require('sequelize');
 
 const createUser = async (req, res) => {
 
@@ -86,8 +86,6 @@ const updateUser = async (req, res) => {
     }
 
   } catch (error) {
-
-    console.log(error);
     
     response.makeResponsesError(res, error, 'UnexpectedError')
 
@@ -112,6 +110,7 @@ const deleteUser = async (req, res) => {
 
     const saveUser = await user.update({
       status: false,
+      deleted_at: Date.now(),
       where: { id }
     });
 
@@ -164,7 +163,6 @@ const getUser = async (req, res) => {
     });
     response.makeResponsesOkData(res, user, 'Success')
   } catch (error) {
-    console.log(error);
     response.makeResponsesError(res, error, 'UnexpectedError')
   }
 }
@@ -175,7 +173,23 @@ const getAllUsers = async (req, res) => {
       where: {
         status: true
       },
-      order: [['createdAt', 'DESC']]
+      order: [['created_at', 'DESC']]
+    });
+
+    response.makeResponsesOkData(res, users, 'Success')
+
+  } catch (error) {
+    response.makeResponsesError(res, error, 'UnexpectedError')
+  }
+}
+
+const getAllDeletedUsers = async (req, res) => {
+  try {
+    const users = await User.findAll({
+      where: {
+        status: false
+      },
+      order: [['deleted_at', 'DESC']]
     });
 
     response.makeResponsesOkData(res, users, 'Success')
@@ -191,5 +205,6 @@ module.exports = {
   deleteUser: deleteUser,
   activateUser: activateUser,
   getUser: getUser,
-  getAllUsers: getAllUsers
+  getAllUsers: getAllUsers,
+  getAllDeletedUsers: getAllDeletedUsers
 }; 

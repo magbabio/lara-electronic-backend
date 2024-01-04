@@ -23,11 +23,19 @@ module.exports = (sequelize, DataTypes) => {
     address: DataTypes.STRING,
     phone: DataTypes.STRING,
     email: DataTypes.STRING,
-    status: DataTypes.BOOLEAN
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
+    deleted_at: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Company',
-    tableName: 'companies'
+    tableName: 'companies',
+    timestamps: true,
+    createdAt: 'created_at', 
+    updatedAt: 'updated_at' 
   });
   return Company;
 };

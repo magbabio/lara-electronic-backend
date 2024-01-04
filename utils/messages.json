@@ -11,6 +11,25 @@
   "UserDeleted": "User deleted successfully",
   "UserActivated": "User activated successfully",
   "UserUpdated": "User updated successfully",
+
+  "CompanyFound": "Company already exists",
+  "CompanyCreated": "Company created successfully",
+  "CompanyNotFound": "Company not found",
+  "CompaniesNotFound": "No companies found",
+  "CompanyUpdated": "Company updated successfully",
+  "CompanyDeleted": "Company deleted successfully",
+  "CompanyActivated": "Company activated successfully",
+  "CompanyBlocked": "This company was deleted",
+
+  "CustomerFound": "Customer already exists",
+  "CustomerCreated": "Customer created successfully",
+  "CustomerNotFound": "Customer not found or inactive",
+  "CustomersNotFound": "No customers found",
+  "CustomerUpdated": "Customer updated successfully",
+  "CustomerDeleted": "Customer deleted successfully",
+  "CustomerActivated": "Customer activated successfully",
+  "CustomerBlocked": "Customer is inactive",
+
   "UnexpectedError": "Unexpected Error",
   "NoToken": "Authorization denied",
   "InvalidToken": "Invalid token"

@@ -24,11 +24,15 @@ module.exports = (sequelize, DataTypes) => {
     left_image: DataTypes.STRING,
     delivery_date: DataTypes.DATE,
     repair_cost: DataTypes.FLOAT,
-    equipment_status: DataTypes.INTEGER
+    equipment_status: DataTypes.INTEGER,
+    deleted_at: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Equipment',
-    tableName: 'equipment'
+    tableName: 'equipment',
+    timestamps: true,
+    createdAt: 'created_at', 
+    updatedAt: 'updated_at' 
   });
   return Equipment;
 };
