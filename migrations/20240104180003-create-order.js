@@ -29,14 +29,21 @@ key: 'id',
 onUpdate: 'CASCADE',
 onDelete: 'CASCADE',
 },
+user_id: {
+  type: Sequelize.INTEGER,
+  allowNull: false,
+  references: {
+  model: 'users',
+  key: 'id',
+  },
+  onUpdate: 'CASCADE',
+  onDelete: 'CASCADE',
+},
 number: {
 type: Sequelize.STRING
 },
 receipt_date: {
 type: Sequelize.DATE
-},
-received_by: {
-type: Sequelize.STRING
 },
 observations: {
 type: Sequelize.STRING
@@ -68,3 +75,4 @@ async down(queryInterface, Sequelize) {
 await queryInterface.dropTable('orders');
 }
 };
+

@@ -38,9 +38,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       left_image: {
+        allowNull: true,
         type: Sequelize.STRING
       },
       delivery_date: {
+        allowNull: true,
         type: Sequelize.DATE
       },
       repair_cost: {

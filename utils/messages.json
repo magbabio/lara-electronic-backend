@@ -30,6 +30,15 @@
   "CustomerActivated": "Customer activated successfully",
   "CustomerBlocked": "Customer is inactive",
 
+  "OrderFound": "Order already exists",
+  "OrderCreated": "Order created successfully",
+  "OrderNotFound": "Order not found or inactive",
+  "OrdersNotFound": "No Orders found",
+  "OrderUpdated": "Order updated successfully",
+  "OrderDeleted": "Order deleted successfully",
+  "OrderActivated": "Order activated successfully",
+  "OrderBlocked": "Order is inactive",
+
   "UnexpectedError": "Unexpected Error",
   "NoToken": "Authorization denied",
   "InvalidToken": "Invalid token"
