@@ -4,6 +4,7 @@ const {
 } = require('sequelize');
 const Customer = require('./Customer');
 const Company = require('./Company');
+const User = require('./User');
 const Equipment = require('./Equipment');
 module.exports = (sequelize, DataTypes) => {
   class Order extends Model {
@@ -15,19 +16,26 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Order.belongsTo(models.Customer);
       Order.belongsTo(models.Company);
+      Order.belongsTo(models.User);
       Order.hasMany(models.Equipment, {
         foreignKey: 'order_id'
       });
     }
   }
   Order.init({
+    customer_id: DataTypes.INTEGER,
+    company_id: DataTypes.INTEGER,
+    user_id: DataTypes.INTEGER,
     number: DataTypes.STRING,
     receipt_date: DataTypes.DATE,
-    received_by: DataTypes.STRING,
     observations: DataTypes.STRING,
     notes: DataTypes.STRING,
     order_status: DataTypes.INTEGER,
-    status: DataTypes.BOOLEAN,
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
     deleted_at: DataTypes.DATE
   }, {
     sequelize,
