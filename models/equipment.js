@@ -27,6 +27,11 @@ module.exports = (sequelize, DataTypes) => {
     delivery_date: DataTypes.DATE,
     repair_cost: DataTypes.FLOAT,
     equipment_status: DataTypes.INTEGER,
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
     deleted_at: DataTypes.DATE
   }, {
     sequelize,
