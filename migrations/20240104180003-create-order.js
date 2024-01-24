@@ -48,9 +48,6 @@ type: Sequelize.DATE
 observations: {
 type: Sequelize.STRING
 },
-notes: {
-type: Sequelize.STRING
-},
 order_status: {
 type: Sequelize.INTEGER
 },

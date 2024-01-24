@@ -2,7 +2,7 @@
 const {
   Model
 } = require('sequelize');
-const Customer = require('./Customer');
+const Customer = require('./index');
 const Company = require('./Company');
 const User = require('./User');
 const Equipment = require('./Equipment');
@@ -14,9 +14,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Order.belongsTo(models.Customer);
-      Order.belongsTo(models.Company);
-      Order.belongsTo(models.User);
+      Order.belongsTo(models.Customer, { foreignKey: 'customer_id' });
+      Order.belongsTo(models.Company, { foreignKey: 'company_id' });
+      Order.belongsTo(models.User,  { foreignKey: 'user_id' });
       Order.hasMany(models.Equipment, {
         foreignKey: 'order_id'
       });
@@ -29,7 +29,6 @@ module.exports = (sequelize, DataTypes) => {
     number: DataTypes.STRING,
     receipt_date: DataTypes.DATE,
     observations: DataTypes.STRING,
-    notes: DataTypes.STRING,
     order_status: DataTypes.INTEGER,
     status: {
       type: DataTypes.BOOLEAN,

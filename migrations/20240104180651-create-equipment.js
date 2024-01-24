@@ -31,6 +31,9 @@ module.exports = {
       serial: {
         type: Sequelize.STRING
       },
+      repair_concept: {
+        type: Sequelize.STRING
+      },
       observations: {
         type: Sequelize.STRING
       },
@@ -46,6 +49,7 @@ module.exports = {
         type: Sequelize.DATE
       },
       repair_cost: {
+        allowNull: true,
         type: Sequelize.FLOAT
       },
       equipment_status: {
