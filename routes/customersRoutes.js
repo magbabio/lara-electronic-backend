@@ -2,12 +2,12 @@ const router = require('express').Router();
 const customersController = require('../controllers/customersController');
 const { authRequired } = require('../middlewares/validateToken');
 
-router.post('/create', authRequired, customersController.createCustomer);
-router.put('/update/:id', authRequired, customersController.updateCustomer);
-router.delete('/delete/:id', authRequired, customersController.deleteCustomer);
-router.put('/activate/:id', authRequired, customersController.activateCustomer);
-router.get('/getCustomer/:id', authRequired, customersController.getCustomer);
-router.get('/getAll', authRequired, customersController.getAllCustomers);
-router.get('/getAllDeleted', authRequired, customersController.getAllDeletedCustomers);
+router.post('/create', customersController.createCustomer);
+router.put('/update/:id', customersController.updateCustomer);
+router.delete('/delete/:id', customersController.deleteCustomer);
+router.put('/activate/:id', customersController.activateCustomer);
+router.get('/getCustomer/:id', customersController.getCustomer);
+router.get('/getAll', customersController.getAllCustomers);
+router.get('/getAllDeleted', customersController.getAllDeletedCustomers);
 
 module.exports = router;

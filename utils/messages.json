@@ -39,6 +39,10 @@
   "OrderActivated": "Order activated successfully",
   "OrderBlocked": "Order is inactive",
 
+  "EquipmentNotFound": "Equipment not found",
+
+  "ImageError": "Image not found",
+
   "UnexpectedError": "Unexpected Error",
   "NoToken": "Authorization denied",
   "InvalidToken": "Invalid token"

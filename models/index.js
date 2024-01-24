@@ -23,11 +23,11 @@ const Order = require('./Order')(sequelize, DataTypes);
 const Role = require('./Role')(sequelize, DataTypes);
 
 // Define las asociaciones entre los modelos si es necesario
-// User.associate({ Company, Customer, Equipment, Order });
-// Company.associate({ User });
-// Customer.associate({ User, Order });
-// Equipment.associate({ Company });
-// Order.associate({ User, Customer, Equipment });
+User.associate({ Order });
+Company.associate({ Order });
+Customer.associate({ Order });
+Equipment.associate({ Order });
+Order.associate({ Customer, Company, User, Equipment });
 
 module.exports = {
   sequelize,
