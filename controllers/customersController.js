@@ -207,6 +207,29 @@ const getAllDeletedCustomers = async (req, res) => {
   }
 }
 
+const getCustomerByDocument = async (req, res) => {
+  try {
+    const { document_type, document_number } = req.params;
+
+    const customer = await Customer.findOne({
+      where: {
+        document_type: document_type,
+        document_number: document_number,
+        status: true
+      }
+    });
+
+    if (!customer) {
+      return response.makeResponsesError(res, 'Customer not found', 'CustomerNotFound');
+    }
+
+    return response.makeResponsesOkData(res, customer, 'Success');
+  } catch (error) {
+    console.log(error);
+    response.makeResponsesError(res, error, 'UnexpectedError');
+  }
+};
+
 module.exports = {
   createCustomer: createCustomer,
   updateCustomer: updateCustomer,
@@ -214,5 +237,6 @@ module.exports = {
   activateCustomer: activateCustomer,
   getCustomer: getCustomer,
   getAllCustomers: getAllCustomers,
-  getAllDeletedCustomers: getAllDeletedCustomers
+  getAllDeletedCustomers: getAllDeletedCustomers,
+  getCustomerByDocument: getCustomerByDocument
 }; 

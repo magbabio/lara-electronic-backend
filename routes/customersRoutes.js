@@ -9,5 +9,6 @@ router.put('/activate/:id', customersController.activateCustomer);
 router.get('/getCustomer/:id', customersController.getCustomer);
 router.get('/getAll', customersController.getAllCustomers);
 router.get('/getAllDeleted', customersController.getAllDeletedCustomers);
+router.get('/getCustomerByDocument/:document_type/:document_number', customersController.getCustomerByDocument);
 
 module.exports = router;

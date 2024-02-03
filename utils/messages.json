@@ -38,6 +38,7 @@
   "OrderDeleted": "Order deleted successfully",
   "OrderActivated": "Order activated successfully",
   "OrderBlocked": "Order is inactive",
+  "OrderEmailSent": "Email sent successfully",
 
   "EquipmentNotFound": "Equipment not found",
 

@@ -2,10 +2,14 @@ const { Order, Equipment, Company, Customer, User } = require('../models');
 const response = require('../utils/responses');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
+const path = require('path');
+const nodemailer = require('nodemailer');
 const { Sequelize } = require('sequelize');
 const { imageUpload } = require('../utils/multer');
 const { generatePDF } = require('../utils/documents');
 const { orderDocument } = require('../utils/assets/OrderDocumentHTML');
+const { orderEmail } = require('../utils/assets/OrderEmailHTML');
+require('dotenv').config()
 
 const createOrder = async (req, res) => {
 
@@ -244,11 +248,16 @@ const getOrder = async (req, res) => {
         id: id,
         status: true
       },
-      include: Equipment
+      include: [
+        { model: Company },
+        { model: Customer },
+        { model: User },
+        { model: Equipment }
+      ]
     });
 
     if (!order) {
-      return response.makeResponsesError(res, `Order not found`, 'OrderotFound');
+      return response.makeResponsesError(res, `Order not found`, 'OrderNotFound');
     }
 
     return response.makeResponsesOkData(res, order, 'Success');
@@ -317,26 +326,97 @@ const generateOrderDocument = async (req, res) => {
       ]
     });
     if (!order) {
+
       return response.makeResponsesError(res, `Order not found`, 'OrderNotFound');
+      
     } else {
-      let contentHtml = '';
-      let pdfName = '';
-      let pdfBuffer;
+      const contentHtml = orderDocument(order);
+      const pdfName = `${order.number}.pdf`;
+      const outputPath = path.join(__dirname, '..', 'public', 'docs', pdfName);
+      const pdfBuffer = await generatePDF(contentHtml);
 
-      contentHtml = orderDocument(order);
-
-      pdfBuffer = await generatePDF(contentHtml);
-
-      pdfName = 'Orden.pdf';
+      fs.writeFileSync(outputPath, pdfBuffer);
 
       res.setHeader('Content-Type', 'application/pdf');
       res.setHeader('Content-Disposition', `inline; filename="${pdfName}"`);
       res.send(pdfBuffer);
     }
   } catch (error) {
-    return res.status(500).json({ error: 'Ha ocurrido un error al generar el PDF' });
+    console.log(error);
+    response.makeResponsesError(res, error, 'UnexpectedError')
   }
 };
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.MAIL_USERNAME,
+    pass: process.env.MAIL_PASSWORD
+  }
+});
+
+const sendOrderEmail = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const order = await Order.findOne({
+      where: {
+        id: id,
+        status: true
+      },
+      include: [
+        { model: Company },
+        { model: Customer },
+        { model: User },
+        { model: Equipment }
+      ]
+    });
+    if (!order) {
+
+      return response.makeResponsesError(res, `Order not found`, 'OrderNotFound');
+      
+    } else { 
+      const contentHtml = orderDocument(order);
+      const pdfName = `${order.number}.pdf`;
+      const outputPath = path.join(__dirname, '..', 'public', 'docs', pdfName);
+
+      const emailData = {
+        title: `Orden de servicio`,
+        customerName: `${order.Customer.first_name} ${order.Customer.last_name}`,
+        companyName: order.Company.name,
+        companyPhone: order.Company.phone
+      };
+
+      const emailContent = orderEmail(emailData);
+
+      const pdfBuffer = await generatePDF(contentHtml, outputPath);
+
+      const attachments = [
+        {
+          filename: 'Orden de servicio.pdf',
+          content: pdfBuffer,
+          contentType: 'application/pdf'
+        }
+      ];
+
+      const mailOptions = {
+        from: process.env.MAIL_USERNAME,
+        to: order.Customer.email,
+        subject: `Ha recibio una orden de servicio - ${order.Company.name}`,
+        html: emailContent,
+        attachments: attachments
+      };
+
+      await transporter.sendMail(mailOptions);
+
+      return response.makeResponsesError(res, `Order sent`, 'OrderEmailSent');
+
+    }
+  } catch (error) {
+    response.makeResponsesError(res, error, 'UnexpectedError')
+  }
+}
+
+
 
 module.exports = {
   createOrder: createOrder,
@@ -346,5 +426,6 @@ module.exports = {
   getOrder: getOrder,
   getAllOrders: getAllOrders,
   getAllDeletedOrders: getAllDeletedOrders,
-  generateOrderDocument: generateOrderDocument
+  generateOrderDocument: generateOrderDocument,
+  sendOrderEmail: sendOrderEmail
 };
