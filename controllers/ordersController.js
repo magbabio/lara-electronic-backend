@@ -342,7 +342,6 @@ const generateOrderDocument = async (req, res) => {
       res.send(pdfBuffer);
     }
   } catch (error) {
-    console.log(error);
     response.makeResponsesError(res, error, 'UnexpectedError')
   }
 };
@@ -408,7 +407,7 @@ const sendOrderEmail = async (req, res) => {
 
       await transporter.sendMail(mailOptions);
 
-      return response.makeResponsesError(res, `Order sent`, 'OrderEmailSent');
+      return response.makeResponsesOkData(res, `Order sent`, 'OrderEmailSent');
 
     }
   } catch (error) {
