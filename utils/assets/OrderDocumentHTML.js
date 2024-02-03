@@ -87,7 +87,6 @@ const orderDocument = (order) => {
 	.stl_04 {
 		position: absolute;
 		pointer-events: none;
-		clip: rect(2.958333em,48.17em,42.4575em,2.838333em);
 		width: 100%;
 	}
 	.stl_05 {
@@ -237,7 +236,7 @@ const orderDocument = (order) => {
 		<body>
 			<div class="stl_ stl_02">
 				<div class="stl_03">
-					<img src="https://live.staticflickr.com/65535/53505305431_34446b2db2_b.jpg" alt="" class="stl_04" style="width: 100%; margin-left: 50px" />
+					<img src="https://live.staticflickr.com/65535/53504964126_aa86e6f0c4_b.jpg" alt="" class="stl_04" style="width: 40%; height: auto; margin-top: 30px"/>
 				</div>
 				<div class="stl_view">
 					<div class="stl_05 stl_06">
