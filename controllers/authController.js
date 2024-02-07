@@ -38,7 +38,7 @@ const login = async (req, res) => {
       secure: false,
     });
 
-    response.makeResponsesOkData(res, valUser, token, 'UserLogin')
+    response.makeResponsesOkData(res, valUser,  token, 'UserLogin')
 
   }
     
