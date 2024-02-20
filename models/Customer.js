@@ -99,6 +99,16 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
+    second_phone: {
+      type: DataTypes.STRING,
+      allowNull:true,
+      validate: {
+        len: {
+          args: [1, 25],
+          msg: 'Teléfono debe tener entre 1 y 25 caracteres'
+        }
+      }
+    },
     email: {
       type: DataTypes.STRING,
       allowNull:false,
