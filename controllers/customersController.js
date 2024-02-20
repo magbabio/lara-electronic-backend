@@ -7,7 +7,7 @@ const createCustomer = async (req, res) => {
 
   try {
 
-    const { document_type, document_number, first_name, last_name, address, phone, email, notes } = req.body;
+    const { document_type, document_number, first_name, last_name, address, phone, second_phone, email, notes } = req.body;
 
     const customer = await Customer.findOne({ 
       where: 
@@ -29,6 +29,7 @@ const createCustomer = async (req, res) => {
         last_name,
         address,
         phone,
+        second_phone,
         email,
         notes
       });

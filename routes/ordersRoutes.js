@@ -12,5 +12,6 @@ router.put('/activate/:id', ordersController.activateOrder);
 router.get('/getOrder/:id', ordersController.getOrder);
 router.get('/getAll', ordersController.getAllOrders);
 router.get('/getAllDeleted', ordersController.getAllDeletedOrders);
+router.get('/searchOrderByEquipmentSerial/:serial', ordersController.searchOrderByEquipmentSerial);
 
 module.exports = router;

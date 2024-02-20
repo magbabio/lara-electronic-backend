@@ -27,6 +27,9 @@ module.exports = {
       phone: {
         type: Sequelize.STRING
       },
+      second_phone: {
+        type: Sequelize.STRING
+      },
       email: {
         type: Sequelize.STRING
       },

@@ -1,4 +1,5 @@
 const { Order, Equipment, Company, Customer, User } = require('../models');
+const { Op } = require('sequelize');
 const response = require('../utils/responses');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
@@ -457,6 +458,29 @@ const sendOrderEmail = async (req, res) => {
   }
 }
 
+const searchOrderByEquipmentSerial = async (req, res) => {
+  try {
+    const { serial } = req.params;
+
+    const orders = await Order.findAll({
+      include: [
+        {
+          model: Equipment,
+          where: {
+            serial: {
+              [Op.iLike]: `%${serial}%`,
+            },
+          },
+        },
+      ],
+    });
+
+    response.makeResponsesOkData(res, orders, 'Success');
+  } catch (error) {
+    response.makeResponsesError(res, error, 'UnexpectedError');
+  }
+};
+
 
 
 module.exports = {
@@ -468,5 +492,6 @@ module.exports = {
   getAllOrders: getAllOrders,
   getAllDeletedOrders: getAllDeletedOrders,
   generateOrderDocument: generateOrderDocument,
-  sendOrderEmail: sendOrderEmail
+  sendOrderEmail: sendOrderEmail,
+  searchOrderByEquipmentSerial: searchOrderByEquipmentSerial
 };
