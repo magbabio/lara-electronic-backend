@@ -22,15 +22,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       validate: {
         notNull: {
-          msg: 'Document type is required'
+          msg: 'Tipo de documento es requerido'
         },
         isIn: {
           args: [['J', 'V', 'E', 'G']],
-          msg: 'Document type must be J, V, E or G'
+          msg: 'Tipo de documento debe ser J, V, E o G'
         },
         len: {
           args: [1, 1],
-          msg: 'Document type must have a length of 1'
+          msg: 'Tipo de documento debe tener sólo un caracter'
         }
       }
     },
@@ -39,11 +39,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       validate: {
         notNull: {
-          msg: 'Document number is required'
+          msg: 'Número de documento es requerido'
         },
         len: {
           args: [1, 10],
-          msg: 'Document number must have a length between 1 and 10'
+          msg: 'Número de documento debe tener entre 1 y 10 caracteres'
         }
       }
     },
@@ -52,11 +52,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       validate: {
         notNull: {
-          msg: 'First name is required'
+          msg: 'Nombre es requerido'
         },
         len: {
-          args: [1, 255],
-          msg: 'First name must have a length between 1 and 255'
+          args: [1, 25],
+          msg: 'Nombre debe tener entre 1 y 25 caracteres'
         }
       }
     },
@@ -65,11 +65,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       validate: {
         notNull: {
-          msg: 'Last name is required'
+          msg: 'Apellido es requerido'
         },
         len: {
           args: [1, 255],
-          msg: 'Last name must have a length between 1 and 255'
+          msg: 'Apellido debe tener entre 1 y 25 caracteres'
         }
       }
     },
@@ -78,11 +78,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       validate: {
         notNull: {
-          msg: 'Phone is required'
+          msg: 'Teléfono es requerido'
         },
         len: {
-          args: [1, 255],
-          msg: 'Phone must have a length between 1 and 255'
+          args: [4, 12],
+          msg: 'Teléfono debe tener entre 4 y 12 caracteres'
+        },
+        isPhoneNumberValid(value) {
+          if (!/^0[0-9]{3}-[0-9]{7}$/.test(value)) {
+            throw new Error('Teléfono no es válido');
+          }
         }
       }
     },
@@ -92,10 +97,10 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       validate: {
         notNull: {
-          msg: 'Email is required'
+          msg: 'Correo electrónico es requerido'
         },
         isEmail: {
-          msg: 'Email is not valid'
+          msg: 'Correo electrónico no es válido'
         }
       }
     },
@@ -104,17 +109,22 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       validate: {
         notNull: {
-          msg: 'Password is required'
+          msg: 'Contraseña es requerida'
         },
         // len: {
         //   args: [8, 16],
-        //   msg: 'Password must have a length between 8 and 16'
+        //   msg: 'Contraseña debe tener entre 8 y 16 caracteres'
         // }
       }
     },
     role: {
       type: DataTypes.STRING,
       allowNull:false,
+      validate: {
+        notNull: {
+          msg: 'Rol es requerido'
+        }
+      }
     },
     status: {
       type: DataTypes.BOOLEAN,

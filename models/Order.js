@@ -26,9 +26,37 @@ module.exports = (sequelize, DataTypes) => {
     customer_id: DataTypes.INTEGER,
     company_id: DataTypes.INTEGER,
     user_id: DataTypes.INTEGER,
-    number: DataTypes.STRING,
-    receipt_date: DataTypes.DATE,
-    observations: DataTypes.STRING,
+    number: {
+      type: DataTypes.STRING,
+      allowNull:false,
+      validate: {
+        notNull: {
+          msg: 'Número de orden es requerido'
+        },
+        len: {
+          args: [6],
+          msg: 'Número de orden debe tener 6 caracteres'
+        }
+      }
+    },
+    receipt_date: {
+      type: DataTypes.DATE,
+      allowNull: false, 
+      validate: {
+        notNull: {
+          msg: 'Fecha de recepción es requerida'
+        }
+      }
+    },  
+    observations: { 
+      type: DataTypes.STRING,
+      validate: {
+        len: {
+          args: [1, 255],
+          msg: 'Observaciones debe tener entre 1 y 255 caracteres'
+        }
+      }
+    },
     order_status: DataTypes.INTEGER,
     status: {
       type: DataTypes.BOOLEAN,

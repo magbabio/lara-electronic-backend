@@ -10,5 +10,7 @@ router.get('/getCustomer/:id', customersController.getCustomer);
 router.get('/getAll', customersController.getAllCustomers);
 router.get('/getAllDeleted', customersController.getAllDeletedCustomers);
 router.get('/getCustomerByDocument/:document_type/:document_number', customersController.getCustomerByDocument);
+router.get('/searchCustomerByName/:name', customersController.searchCustomerByName);
+
 
 module.exports = router;
