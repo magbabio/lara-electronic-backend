@@ -38,8 +38,13 @@ const createCompany = async (req, res) => {
 
   } catch (error) {
         
-    response.makeResponsesError(res, error, 'UnexpectedError')
-
+    if (error.name === 'SequelizeValidationError') {
+      const validationErrors = error.errors.map((err) => err.message);
+      response.makeResponsesError(res, validationErrors.join(', '), 'UnexpectedError');
+    } else {
+      response.makeResponsesError(res, error.message, 'UnexpectedError');
+    }
+    
   }
 }
 

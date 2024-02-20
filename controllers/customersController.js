@@ -1,4 +1,5 @@
 const { Customer } = require('../models');
+const { Op, literal } = require('sequelize');
 const response = require('../utils/responses');
 const { Sequelize } = require('sequelize');
 
@@ -40,7 +41,12 @@ const createCustomer = async (req, res) => {
 
   } catch (error) {
         
-    response.makeResponsesError(res, error, 'UnexpectedError')
+    if (error.name === 'SequelizeValidationError') {
+      const validationErrors = error.errors.map((err) => err.message);
+      response.makeResponsesError(res, validationErrors.join(', '), 'UnexpectedError');
+    } else {
+      response.makeResponsesError(res, error.message, 'UnexpectedError');
+    }
 
   }
 }
@@ -76,7 +82,12 @@ const updateCustomer = async (req, res) => {
 
   } catch (error) {
     
-    response.makeResponsesError(res, error, 'UnexpectedError')
+    if (error.name === 'SequelizeValidationError') {
+      const validationErrors = error.errors.map((err) => err.message);
+      response.makeResponsesError(res, validationErrors.join(', '), validationErrors.join(', '));
+    } else {
+      response.makeResponsesError(res, error.message, 'UnexpectedError');
+    }
 
   }
 }
@@ -207,6 +218,78 @@ const getAllDeletedCustomers = async (req, res) => {
   }
 }
 
+const getCustomerByDocument = async (req, res) => {
+  try {
+    const { document_type, document_number } = req.params;
+
+    const customer = await Customer.findOne({
+      where: {
+        document_type: document_type,
+        document_number: document_number,
+        status: true
+      }
+    });
+
+    if (!customer) {
+      return response.makeResponsesError(res, 'Customer not found', 'CustomerNotFound');
+    }
+
+    return response.makeResponsesOkData(res, customer, 'Success');
+  } catch (error) {
+    response.makeResponsesError(res, error, 'UnexpectedError');
+  }
+};
+
+const searchCustomerByName = async (req, res) => {
+  try {
+    const { name } = req.params;
+
+    if (name.includes(' ')) {
+      const [firstName, lastName] = name.split(' ');
+
+      const customers = await Customer.findAll({
+        where: {
+          [Op.or]: [
+            {
+              first_name: {
+                [Op.iLike]: `%${firstName}%`,
+              },
+              last_name: {
+                [Op.iLike]: `%${lastName}%`,
+              },
+            },
+            literal(`CONCAT(first_name, ' ', last_name) ILIKE '%${name}%'`),
+          ],
+        },
+      });
+
+      response.makeResponsesOkData(res, customers, 'Success');
+    } else {
+      const customers = await Customer.findAll({
+        where: {
+          [Op.or]: [
+            {
+              first_name: {
+                [Op.iLike]: `%${name}%`,
+              },
+            },
+            {
+              last_name: {
+                [Op.iLike]: `%${name}%`,
+              },
+            },
+          ],
+        },
+      });
+
+      response.makeResponsesOkData(res, customers, 'Success');
+    }
+  } catch (error) {
+    console.log(error); 
+    response.makeResponsesError(res, error, 'UnexpectedError');
+  }
+};
+
 module.exports = {
   createCustomer: createCustomer,
   updateCustomer: updateCustomer,
@@ -214,5 +297,7 @@ module.exports = {
   activateCustomer: activateCustomer,
   getCustomer: getCustomer,
   getAllCustomers: getAllCustomers,
-  getAllDeletedCustomers: getAllDeletedCustomers
+  getAllDeletedCustomers: getAllDeletedCustomers,
+  getCustomerByDocument: getCustomerByDocument,
+  searchCustomerByName: searchCustomerByName
 }; 

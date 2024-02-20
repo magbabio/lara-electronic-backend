@@ -2,12 +2,21 @@ const { User, Role } = require('../models');
 const response = require('../utils/responses');
 const bcrypt = require('bcrypt');
 const { Sequelize } = require('sequelize');
+const { comparePassword } = require('../utils/validate');
 
 const createUser = async (req, res) => {
 
   try {
 
-    const { document_type, document_number, first_name, last_name, phone, email, password, role } = req.body;
+    const { document_type, 
+      document_number, 
+      first_name, 
+      last_name, 
+      phone, 
+      email, 
+      password,
+      confirmPassword, 
+      role } = req.body;
 
     const emailFound = await User.findOne({ 
       where: 
@@ -31,6 +40,8 @@ const createUser = async (req, res) => {
       response.makeResponsesError(res, `Document already in use`, 'UserFoundD')
 
       } else {
+
+      comparePassword({password, confirmPassword});
       
       const newUser = await User.create({
         document_type,
@@ -51,7 +62,12 @@ const createUser = async (req, res) => {
 
   } catch (error) {
     
-    response.makeResponsesError(res, error, 'UnexpectedError')
+    if (error.name === 'SequelizeValidationError') {
+      const validationErrors = error.errors.map((err) => err.message);
+      response.makeResponsesError(res, validationErrors.join(', '), 'UnexpectedError');
+    } else {
+      response.makeResponsesError(res, error.message, 'UnexpectedError');
+    }
 
   }
 }
@@ -87,7 +103,12 @@ const updateUser = async (req, res) => {
 
   } catch (error) {
     
-    response.makeResponsesError(res, error, 'UnexpectedError')
+    if (error.name === 'SequelizeValidationError') {
+      const validationErrors = error.errors.map((err) => err.message);
+      response.makeResponsesError(res, validationErrors.join(', '), 'UnexpectedError');
+    } else {
+      response.makeResponsesError(res, error.message, 'UnexpectedError');
+    }
 
   }
 }

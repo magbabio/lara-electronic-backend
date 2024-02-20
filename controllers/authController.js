@@ -2,6 +2,8 @@ const { User } = require('../models');
 const response = require('../utils/responses');
 const { createAccessToken } = require('../libs/jwt');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const login = async (req, res) => {
 
@@ -36,13 +38,35 @@ const login = async (req, res) => {
       secure: false,
     });
 
-    response.makeResponsesOkData(res, token, 'UserLogin')
+    response.makeResponsesOkData(res, valUser,  token, 'UserLogin')
 
   }
     
   } catch (error) {
     response.makeResponsesError(res, error, 'UnexpectedError')
   }
+}
+
+const verifyToken = async (req, res) => {
+  const { token } = req.cookies;
+
+  if (!token) return response.makeResponsesError(res, `No token`, 'NoToken')
+
+  jwt.verify(token, process.env.SECRET_KEY, async (error, decodedToken) => {
+    if (error) {
+      response.makeResponsesError(res, error, 'NoToken')
+    }
+
+    const user = await User.findByPk(decodedToken.id, {
+      where: {
+        status: true
+      }
+    });
+
+    if (!user) return response.makeResponsesError(res, `User doesn't exist`, 'UserNotFound')
+
+    return response.makeResponsesOkData(res, user)
+  });
 }
 
 const logout = async (req, res) => {
@@ -60,5 +84,6 @@ const logout = async (req, res) => {
 
 module.exports = {
   login: login,
-  logout: logout
+  logout: logout,
+  verifyToken: verifyToken
 }; 

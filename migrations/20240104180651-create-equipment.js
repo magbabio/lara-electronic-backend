@@ -55,6 +55,9 @@ module.exports = {
       equipment_status: {
         type: Sequelize.INTEGER
       },
+      status: {
+        type: Sequelize.BOOLEAN
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE
