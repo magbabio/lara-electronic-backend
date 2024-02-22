@@ -421,7 +421,7 @@ function calculateVerticalOffset(previousEquipment) {
 					<div class="stl_01" style="left:30.06em;top:15.1729em;"><span class="stl_17 stl_18 stl_19" style="word-spacing:-0.0054em;">PARA REPARAR &nbsp;</span></div>
 					<div class="stl_01" style="left:3.15em;top:17.7627em;"><span class="stl_13 stl_11 stl_20" style="word-spacing:0.2277em;">CLIENTE: </span><span class="stl_21 stl_11 stl_22" style="word-spacing:0.0019em;">${order.Customer.first_name} ${order.Customer.last_name} &nbsp;</span></div>
 					<div class="stl_01" style="left:3.15em;top:19.7927em;"><span class="stl_13 stl_11 stl_16" style="word-spacing:0.2308em;">CI/RIF: </span><span class="stl_21 stl_11 stl_23">${order.Customer.document_type}${order.Customer.document_number} &nbsp;</span></div>
-					<div class="stl_01" style="left:10.47em;top:21.4982em;"><span class="stl_24 stl_11 stl_25">${order.Customer.phone} &nbsp;</span></div>
+					<div class="stl_01" style="left:7.47em;top:21.4500em;"><span class="stl_24 stl_11 stl_25">${order.Customer.phone} &nbsp;</span></div>
 					<div class="stl_01" style="left:3.15em;top:21.4527em;"><span class="stl_13 stl_11 stl_26">TELEFONO: &nbsp;</span></div>
 					<div class="stl_01" style="left:3.15em;top:23.2527em;"><span class="stl_13 stl_11 stl_25" style="word-spacing:0.0096em;">RECIBIDO: </span><span class="stl_21 stl_11 stl_14">${order.User.first_name} &nbsp;</span></div>
 					<div class="stl_01" style="left:3.15em;top:26.6543em;"><span class="stl_27 stl_18 stl_28">EQUIPO: &nbsp;</span></div>
@@ -434,9 +434,9 @@ function calculateVerticalOffset(previousEquipment) {
 
 					<div class="stl_01" style="left:3.15em;top:58.6743em;"><span class="stl_27 stl_18 stl_35" style="word-spacing:0.0123em;">REVISION POR EQUIPO: </span><span class="stl_34 stl_18 stl_37">3$ &nbsp;</span></div>
 					<div class="stl_01" style="left:14.25em;top:62.1765em;"><span class="stl_38 stl_18 stl_39" style="word-spacing:0.4289em;">NOTAS: 1-</span><span class="stl_38 stl_18 stl_15" style="word-spacing:-0.008em;">&nbsp;</span><span class="stl_38 stl_18 stl_40" style="word-spacing:-0.0047em;">GARANTIA REPARACION 30 DIAS &nbsp;</span></div>
-					<div class="stl_01" style="left:17.38em;top:63.4966em;"><span class="stl_38 stl_18 stl_41" style="word-spacing:-0.005em;">2- LA EMPRESA NO SE HACE REPONSABLE POR EQUIPOS DEJADOS ACA POR MAS &nbsp;</span></div>
-					<div class="stl_01" style="left:17.38em;top:64.5465em;"><span class="stl_38 stl_18 stl_42" style="word-spacing:-0.0065em;">DE 30 DIAS &nbsp;</span></div>
-					<div class="stl_03" style="left:3.13em;top:64.5143em;"><span class="stl_43 stl_11 stl_44"><img src="https://live.staticflickr.com/65535/53544497909_6b7664ceca_z.jpg" alt="" style="width: 40%; height: auto; margin-top: 30px" /></span><span class="stl_43 stl_11 stl_45" style="visibility:hidden;word-spacing:0.0197em;">E 30 DIAS &nbsp;</span></div>
+					<div class="stl_01" style="left:17.38em;top:63.4966em;"><span class="stl_38 stl_18 stl_41" style="word-spacing:-0.005em;">2- LA EMPRESA NO SE HACE REPONSABLE POR EQUIPOS CON MAS DE&nbsp;</span></div>
+					<div class="stl_01" style="left:17.38em;top:64.5465em;"><span class="stl_38 stl_18 stl_42" style="word-spacing:-0.0065em;"><b>45<b> DIAS EN NUESTRAS INSTALACIONES &nbsp;</span></div>
+					<div class="stl_03" style="left:3.13em;top:64.5143em;"><span class="stl_43 stl_11 stl_44"><img src="https://live.staticflickr.com/65535/53544497909_6b7664ceca_z.jpg" alt="" style="width: 40%; height: auto; margin-top: 30px" /></span><span class="stl_38 stl_18 stl_42" style="visibility:hidden;word-spacing:0.0197em;"><b>45<b> DIAS &nbsp;</span></div>
 
 				</div>
 			</div>
