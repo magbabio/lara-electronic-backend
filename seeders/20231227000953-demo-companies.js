@@ -6,9 +6,9 @@ module.exports = {
     return queryInterface.bulkInsert('companies', [{
       document_type:'J',
       document_number:'12345678',
-      name: 'ELECTRÓNICA Y SISTEMAS LARA, C.A.',
-      address: 'Av. Pedro León Torres Esq. Calle 55A',
-      phone: '0251-4435613 0414-5134750 0424-5004176',
+      name: 'LARA ELECTRONICA',
+      address: 'CALLE 49 ENTRE CARRERAS 15 Y 16',
+      phone: '0424-5004176 / 0414-5134750 / 0424-5181840',
       email: 'electronicaysistemaslara@gmail.com',
       status: true,
       created_at: new Date(),
