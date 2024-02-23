@@ -29,19 +29,19 @@ let equipmentHtml = order.Equipment.map((equipment, index) => {
   const html = `
     <div class="equipment">
       <div class="stl_01" style="left:3.15em;top:${topValue + topOffset}em;">
-        <span class="stl_21 stl_11 stl_22">${descriptionHtml} &nbsp;</span>
+        <span class="stl_27 stl_18 stl_22">${descriptionHtml} &nbsp;</span>
       </div>
       <div class="stl_01" style="left:12.475em;top:${topValue + topOffset}em;">
-        <span class="stl_21 stl_11 stl_22">${brandHtml} &nbsp;</span>
+        <span class="stl_27 stl_18 stl_22">${brandHtml} &nbsp;</span>
       </div>
       <div class="stl_01" style="left:22.39em;top:${topValue + topOffset}em;">
-        <span class="stl_21 stl_11 stl_22">${modelHtml} &nbsp;</span>
+        <span class="stl_27 stl_18 stl_22">${modelHtml} &nbsp;</span>
       </div>
       <div class="stl_01" style="left:30.55em;top:${topValue + topOffset}em;">
-        <span class="stl_21 stl_11 stl_22">${serialHtml} &nbsp;</span>
+        <span class="stl_27 stl_18 stl_22"><b>${serialHtml}</b> &nbsp;</span>
       </div>
       <div class="stl_01" style="left:40.0488em;top:${topValue + topOffset}em;">
-        <span class="stl_21 stl_11 stl_22" style="word-spacing:-0.0047em;">${repairConceptHtml} &nbsp;</span>
+        <span class="stl_27 stl_18 stl_22" style="word-spacing:-0.0047em;">${repairConceptHtml} &nbsp;</span>
       </div>
     </div>
   `;
@@ -419,9 +419,9 @@ function calculateVerticalOffset(previousEquipment) {
 					<div class="stl_01" style="left:30.06em;top:12.4272em;"><span class="stl_10 stl_11 stl_15" style="word-spacing:-0.0094em;">ORDEN N°: ${order.number} &nbsp;</span></div>
 					<div class="stl_01" style="left:30.06em;top:13.7972em;"><span class="stl_10 stl_11 stl_16" style="word-spacing:-0.0045em;">FECHA: ${receiptDate} &nbsp;</span></div>
 					<div class="stl_01" style="left:30.06em;top:15.1729em;"><span class="stl_17 stl_18 stl_19" style="word-spacing:-0.0054em;">PARA REPARAR &nbsp;</span></div>
-					<div class="stl_01" style="left:3.15em;top:17.7627em;"><span class="stl_13 stl_11 stl_20" style="word-spacing:0.2277em;">CLIENTE: </span><span class="stl_21 stl_11 stl_22" style="word-spacing:0.0019em;">${order.Customer.first_name} ${order.Customer.last_name} &nbsp;</span></div>
-					<div class="stl_01" style="left:3.15em;top:19.7927em;"><span class="stl_13 stl_11 stl_16" style="word-spacing:0.2308em;">CI/RIF: </span><span class="stl_21 stl_11 stl_23">${order.Customer.document_type}${order.Customer.document_number} &nbsp;</span></div>
-					<div class="stl_01" style="left:7.47em;top:21.4500em;"><span class="stl_24 stl_11 stl_25">${order.Customer.phone} &nbsp;</span></div>
+					<div class="stl_01" style="left:3.15em;top:17.7627em;"><span class="stl_13 stl_11 stl_20" style="word-spacing:0.2277em;">CLIENTE: </span><span class="stl_13 stl_11 stl_20" style="word-spacing:0.0019em;">${order.Customer.first_name} ${order.Customer.last_name} &nbsp;</span></div>
+					<div class="stl_01" style="left:3.15em;top:19.7927em;"><span class="stl_13 stl_11 stl_16" style="word-spacing:0.2308em;">CI/RIF: </span><span class="stl_13 stl_11 stl_16">${order.Customer.document_type}${order.Customer.document_number} &nbsp;</span></div>
+					<div class="stl_01" style="left:7.47em;top:21.4500em;"><span class="stl_13 stl_11 stl_26">${order.Customer.phone} &nbsp;</span></div>
 					<div class="stl_01" style="left:3.15em;top:21.4527em;"><span class="stl_13 stl_11 stl_26">TELEFONO: &nbsp;</span></div>
 					<div class="stl_01" style="left:3.15em;top:23.2527em;"><span class="stl_13 stl_11 stl_25" style="word-spacing:0.0096em;">RECIBIDO: </span><span class="stl_21 stl_11 stl_14">${order.User.first_name} &nbsp;</span></div>
 					<div class="stl_01" style="left:3.15em;top:26.6543em;"><span class="stl_27 stl_18 stl_28">EQUIPO: &nbsp;</span></div>
