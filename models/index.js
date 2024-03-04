@@ -12,6 +12,8 @@ const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.p
   port: dbConfig.port
 });
 
+sequelize.options.logging = false
+
 const DataTypes = Sequelize.DataTypes; // Obtain Sequelize data types
 
 // Import models

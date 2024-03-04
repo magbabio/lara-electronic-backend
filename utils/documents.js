@@ -10,6 +10,8 @@ const generatePDF = async (htmlContent, outputPath) => {
   const pdfOptions = {
     format: 'A4',
     path: outputPath,
+    landscape: true,
+    pageRanges: '1'
   };
 
   const pdfBuffer = await page.pdf(pdfOptions);
