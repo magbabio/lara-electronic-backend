@@ -13,5 +13,10 @@ router.get('/getOrder/:id', ordersController.getOrder);
 router.get('/getAll', ordersController.getAllOrders);
 router.get('/getAllDeleted', ordersController.getAllDeletedOrders);
 router.get('/searchOrderByEquipmentSerial/:serial', ordersController.searchOrderByEquipmentSerial);
+router.get('/equipmentCount', ordersController.equipmentCount);
+router.get('/userCount', ordersController.userCount);
+router.get('/orderCount', ordersController.orderCount);
+router.get('/customerCount', ordersController.customerCount);
+
 
 module.exports = router;
