@@ -36,51 +36,54 @@ const login = async (req, res) => {
 
     res.cookie("token", token, {
       secure: false,
+      sameSite: "strict",
     });
 
-    response.makeResponsesOkData(res, {valUser,  token}, 'UserLogin')
+    return res.json({
+      id: valUser.id,
+      email:valUser.email,
+      first_name: valUser.first_name,
+      last_name: valUser.last_name,
+      role: valUser.role,
+      token: token
+  });
 
   }
     
   } catch (error) {
+    console.log('holaaaaaaaaa',error);
     response.makeResponsesError(res, error, 'UnexpectedError')
   }
 }
 
 const verifyToken = async (req, res) => {
-  const { token } = req.cookies;
-
-  if (!token) return response.makeResponsesError(res, `No token`, 'NoToken')
-
-  jwt.verify(token, process.env.SECRET_KEY, async (error, decodedToken) => {
-    if (error) {
-      response.makeResponsesError(res, error, 'NoToken')
-    }
-
-    const user = await User.findByPk(decodedToken.id, {
-      where: {
-        status: true
-      }
+    const { token } = req.cookies;
+    if (!token) return res.status(401).json({ message: "Unauthorized" });
+  
+    jwt.verify(token, process.env.SECRET_KEY, async (error, user) => {
+        if (error) {
+          return res.status(401).json({ message: "Unauthorized" });
+        }
+        
+      const userFound = await User.findByPk(user.id);
+      if (!userFound) return res.sendStatus(401).json({ message: "Unauthorized" });
+  
+      return res.json({
+        id: userFound._id,
+        username: userFound.username,
+        email: userFound.email,
+      });
     });
-
-    if (!user) return response.makeResponsesError(res, `User doesn't exist`, 'UserNotFound')
-
-    return response.makeResponsesOkData(res, user)
-  });
-}
+};
 
 const logout = async (req, res) => {
-  try {
-    res.cookie("token", "", {
+  res.cookie("token", "", {
       httpOnly: true,
       secure: true,
       expires: new Date(0),
     });
-    response.makeResponsesOk(res, 'UserLogout')
-  } catch (error) {
-    response.makeResponsesError(res, error, 'UnexpectedError')
-  }
-}
+    return res.sendStatus(200);
+};
 
 module.exports = {
   login: login,

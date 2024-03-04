@@ -36,7 +36,6 @@ const createOrder = async (req, res) => {
       customer_id,
       company_id,
       user_id, 
-      receipt_date, 
       observations,
       order_status, 
       equipment,
@@ -73,6 +72,8 @@ const createOrder = async (req, res) => {
         response.makeResponsesError(res, `Order found`, 'OrderFound')
   
         } else {
+
+        const receipt_date = new Date();
         
         const order = await Order.create({
           customer_id,
@@ -120,8 +121,6 @@ const createOrder = async (req, res) => {
     }
 
   } catch (error) {
-
-    console.log(error);
 
     if (error.name === 'SequelizeValidationError') {
       const validationErrors = error.errors.map((err) => err.message);
@@ -385,6 +384,7 @@ const generateOrderDocument = async (req, res) => {
       res.send(pdfBuffer);
     }
   } catch (error) {
+    console.log(error);
     response.makeResponsesError(res, error, 'UnexpectedError')
   }
 };
@@ -481,6 +481,66 @@ const searchOrderByEquipmentSerial = async (req, res) => {
   }
 };
 
+const equipmentCount = async (req, res) => {
+  try {
+
+    const equipmentCount = await Order.count({
+      include: [{
+        model: Equipment,
+        required: true,
+        where: { status: true }, 
+      }],
+    }); 
+
+    res.json({ equipmentCount  });
+
+  } catch (error) {
+    res.status(500).json({ message: 'Ha ocurrido un error' });
+  }
+};
+
+const userCount = async (req, res) => {
+  try {
+
+    const userCount = await User.count({
+      where: { status: true }, 
+    }); 
+
+    res.json({ userCount  });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Ha ocurrido un error' });
+  }
+};
+
+const orderCount = async (req, res) => {
+  try {
+
+    const orderCount = await Order.count({
+      where: { status: true }, 
+    }); 
+
+    res.json({ orderCount  });
+
+  } catch (error) {
+    res.status(500).json({ message: 'Ha ocurrido un error' });
+  }
+};
+
+const customerCount = async (req, res) => {
+  try {
+
+    const customerCount = await Customer.count({
+      where: { status: true }, 
+    }); 
+
+    res.json({ customerCount  });
+
+  } catch (error) {
+    res.status(500).json({ message: 'Ha ocurrido un error' });
+  }
+};
 
 
 module.exports = {
@@ -493,5 +553,9 @@ module.exports = {
   getAllDeletedOrders: getAllDeletedOrders,
   generateOrderDocument: generateOrderDocument,
   sendOrderEmail: sendOrderEmail,
-  searchOrderByEquipmentSerial: searchOrderByEquipmentSerial
+  searchOrderByEquipmentSerial: searchOrderByEquipmentSerial,
+  equipmentCount: equipmentCount,
+  userCount: userCount,
+  orderCount: orderCount,
+  customerCount: customerCount
 };
