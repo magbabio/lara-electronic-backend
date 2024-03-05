@@ -1,26 +1,26 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "1234",
-    "database": "LaraElectronica",
-    "host": "127.0.0.1",
+    "username": "mariel",
+    "password": "EGPF5fU7y11CDA15BneVWVUkZUnm6s1o",
+    "database": "laraelectronica",
+    "host": "dpg-cnj538en7f5s73ambv60-a",
     "dialect": "postgres",
-    "port": "5433"
+    "port": "5432"
   },
   "test": {
-    "username": "postgres",
-    "password": "1234",
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "username": "mariel",
+    "password": "EGPF5fU7y11CDA15BneVWVUkZUnm6s1o",
+    "database": "laraelectronica",
+    "host": "dpg-cnj538en7f5s73ambv60-a",
     "dialect": "postgres",
-    "port": "5433"
+    "port": "5432"
   },
   "production": {
-    "username": "postgres",
-    "password": "1234",
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "mariel",
+    "password": "EGPF5fU7y11CDA15BneVWVUkZUnm6s1o",
+    "database": "laraelectronica",
+    "host": "dpg-cnj538en7f5s73ambv60-a",
     "dialect": "postgres",
-    "port": "5433"
+    "port": "5432"
   }
 }
