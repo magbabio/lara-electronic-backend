@@ -1,16 +1,21 @@
 const Sequelize = require('sequelize');
-const config = require('../config/config.json');
+require('dotenv').config();
+
 
 // Reads the configuration corresponding to the current environment
 const env = process.env.NODE_ENV || 'development';
-const dbConfig = config[env];
 
 // Create the Sequelize instance using the configuration
-const sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
-  host: dbConfig.host,
-  dialect: dbConfig.dialect,
-  port: dbConfig.port
-});
+const sequelize = new Sequelize(
+  process.env.DB_DATABASE,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
+  {
+    host: process.env.DB_HOST,
+    dialect: process.env.DB_DIALECT,
+    port: process.env.DB_PORT
+  }
+);
 
 sequelize.options.logging = false
 
