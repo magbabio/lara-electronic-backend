@@ -14,17 +14,16 @@ const { orderEmail } = require('../utils/assets/OrderEmailHTML');
 require('dotenv').config()
 
 // Obtén la configuración correspondiente al entorno de desarrollo
-const dbConfig = config.development;
 
 // Crea una instancia de Sequelize utilizando la configuración
 const sequelize = new Sequelize(
-  dbConfig.database,
-  dbConfig.username,
-  dbConfig.password,
+  process.env.DB_DATABASE,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
   {
-    host: dbConfig.host,
-    dialect: dbConfig.dialect,
-    port: dbConfig.port
+    host: process.env.DB_HOST,
+    dialect: process.env.DB_DIALECT,
+    port: process.env.DB_PORT
   }
 );
 
