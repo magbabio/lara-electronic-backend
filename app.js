@@ -25,7 +25,7 @@ app.use("/api", routes);
 app.use(morgan('dev'));
 
 // Ejecutar migraciones y seeders
-exec('npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all', (error, stdout, stderr) => {
+exec('npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && npx puppeteer browsers install chrome', (error, stdout, stderr) => {
   if (error) {
     console.error('Error al ejecutar migraciones y seeders:', error);
     return;
