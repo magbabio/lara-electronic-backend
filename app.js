@@ -3,10 +3,11 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const routes = require('./routes');
+const { exec } = require('child_process');
 
 require('dotenv').config();
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4000;
 const FRONTEND_URL = process.env.FRONTEND_URL;
 const app = express();
 
@@ -23,8 +24,18 @@ app.use(cookieParser());
 app.use("/api", routes);
 app.use(morgan('dev'));
 
-app.listen(port, () => {
-  console.log(`Server is running on ${process.env.PORT}`)
-})
+// Ejecutar migraciones y seeders
+exec('npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all', (error, stdout, stderr) => {
+  if (error) {
+    console.error('Error al ejecutar migraciones y seeders:', error);
+    return;
+  }
+  console.log('Migraciones y seeders ejecutados correctamente');
+  
+  // Iniciar el servidor
+  app.listen(port, () => {
+    console.log(`Servidor iniciado en el puerto ${port}`);
+  });
+});
 
 module.exports = app;
