@@ -371,7 +371,7 @@ const generateOrderDocument = async (req, res) => {
     } else {
       const contentHtml = orderDocument(order);
       const pdfName = `${order.number}.pdf`;
-      const outputPath = `/mnt/docs/${pdfName}`; // Ruta de almacenamiento persistente en Render
+      const outputPath = `/opt/render/project/src/public/docs/${pdfName}`; // Ruta de almacenamiento persistente en Render
       const pdfBuffer = await generatePDF(contentHtml);
 
       fs.writeFileSync(outputPath, pdfBuffer);
