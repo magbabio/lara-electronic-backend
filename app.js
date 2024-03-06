@@ -24,17 +24,26 @@ app.use(cookieParser());
 app.use("/api", routes);
 app.use(morgan('dev'));
 
-// Ejecutar migraciones y seeders
-exec('npx puppeteer browsers install chrome && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all', (error, stdout, stderr) => {
+// Deshacer todas las migraciones existentes
+exec('npx sequelize-cli db:migrate:undo:all', (error, stdout, stderr) => {
   if (error) {
-    console.error('Error al ejecutar migraciones y seeders:', error);
+    console.error('Error al deshacer las migraciones existentes:', error);
     return;
   }
-  console.log('Migraciones y seeders ejecutados correctamente');
+  console.log('Migraciones anteriores deshechas correctamente');
   
-  // Iniciar el servidor
-  app.listen(port, () => {
-    console.log(`Servidor iniciado en el puerto ${port}`);
+  // Ejecutar migraciones y seeders
+  exec('npx puppeteer browsers install chrome && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all', (error, stdout, stderr) => {
+    if (error) {
+      console.error('Error al ejecutar migraciones y seeders:', error);
+      return;
+    }
+    console.log('Migraciones y seeders ejecutados correctamente');
+    
+    // Iniciar el servidor
+    app.listen(port, () => {
+      console.log(`Servidor iniciado en el puerto ${port}`);
+    });
   });
 });
 
