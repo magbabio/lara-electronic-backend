@@ -367,13 +367,11 @@ const generateOrderDocument = async (req, res) => {
       ]
     });
     if (!order) {
-
       return response.makeResponsesError(res, `Order not found`, 'OrderNotFound');
-      
     } else {
       const contentHtml = orderDocument(order);
       const pdfName = `${order.number}.pdf`;
-      const outputPath = path.join(__dirname, '..', 'public', 'docs', pdfName);
+      const outputPath = `/mnt/docs/${pdfName}`; // Ruta de almacenamiento persistente en Render
       const pdfBuffer = await generatePDF(contentHtml);
 
       fs.writeFileSync(outputPath, pdfBuffer);
