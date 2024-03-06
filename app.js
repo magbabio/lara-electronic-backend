@@ -25,7 +25,7 @@ app.use("/api", routes);
 app.use(morgan('dev'));
 
 // Deshacer todas las migraciones existentes
-exec('npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:seed:undo:all', (error, stdout, stderr) => {
+exec('npx sequelize-cli db:seed:undo:all && npx sequelize-cli db:migrate:undo:all', (error, stdout, stderr) => {
   if (error) {
     console.error('Error al deshacer las migraciones existentes:', error);
     return;
